@@ -6,7 +6,7 @@ function Cell(props) {
 	const styles = {
 		width: '15px',
 		height: '15px',
-		backgroundColor: `${false} ? 'black' : 'white'}`,
+		backgroundColor: `${props.isAlive ? 'black' : 'white'}`,
 		border: `solid lightgray 1px`,
 	};
 
@@ -14,7 +14,8 @@ function Cell(props) {
 		<div
 			style={styles}
 			onClick={() => {
-				props.updateGrid(props.grid, props.x, props.y);
+				console.log(props.grid.getCurrentGrid()[props.y][props.x]);
+				props.updateGrid(props.grid, props.y, props.x);
 			}}
 		></div>
 	);

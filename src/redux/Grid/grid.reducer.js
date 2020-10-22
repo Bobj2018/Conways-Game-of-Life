@@ -1,5 +1,5 @@
 import Grid from '../../helpers/grid';
-import { RENDER, UPDATE } from './grid.types';
+import { RENDER, UPDATE, SIMULATE } from './grid.types';
 
 const INITIAL_STATE = {
 	grid: new Grid(),
@@ -15,7 +15,12 @@ const reducer = (state = INITIAL_STATE, action) => {
 		case UPDATE:
 			return {
 				...state,
-				counter: (state.counter += 1),
+				counter: state.counter + 1,
+			};
+		case SIMULATE:
+			return {
+				...state,
+				counter: state.counter + 1,
 			};
 		default:
 			return state;

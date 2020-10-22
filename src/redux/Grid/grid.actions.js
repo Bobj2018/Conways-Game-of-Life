@@ -9,7 +9,13 @@ export const renderGrid = (grid) => {
 
 export const updateGrid = (grid, x, y) => {
 	grid.updateGrid(y, x);
-	console.log(grid);
+	return {
+		type: UPDATE,
+	};
+};
+
+export const simulateGrid = (grid) => {
+	grid.simulateGrid();
 	return {
 		type: UPDATE,
 	};

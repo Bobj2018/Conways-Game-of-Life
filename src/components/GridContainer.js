@@ -4,32 +4,23 @@ import { connect } from 'react-redux';
 
 import { renderGrid } from '../redux/Grid/grid.actions';
 
-function renderDOM(obj, size, grid) {
-	const arr = [];
-	for (const key in obj) {
-		// eslint-disable-next-line array-callback-return
-		obj[key].map((value, index) => {
-			arr.push(<Cell key={`${key} ${index}`} x={index} y={parseInt(key)} size={size} />);
-		});
-	}
-
-	return arr;
-}
-
-function GridContainer([grid, renderGrid]) {
+function GridContainer(props) {
+	const { grid } = props;
 	const [renderedDOM, setRenderedDOM] = useState(null);
 	const styles = {
-		width: `${17 * grid.getSize()}px`,
-		height: `${17 * grid.getSize()}px`,
+		width: `${17 * props.grid.getSize()}px`,
+		height: `${17 * props.grid.getSize()}px`,
 		border: 'solid black 2px',
 		display: 'flex',
 		flexWrap: 'wrap',
 	};
 
 	useEffect(() => {
-		renderGrid(grid);
-		setRenderedDOM(renderDOM(grid.getCurrentGrid(), grid.getSize(), grid));
-	}, []);
+		if (props.grid.getCurrentGrid() === null) {
+			props.renderGrid(props.grid);
+		}
+		setRenderedDOM(props.grid.renderDOM(Cell));
+	}, [props.counter]);
 
 	return <div style={styles}>{renderedDOM}</div>;
 }
@@ -37,7 +28,7 @@ function GridContainer([grid, renderGrid]) {
 const mapStateToProps = (state) => {
 	return {
 		grid: state.grid.grid,
-		counter: state.counter,
+		counter: state.grid.counter,
 	};
 };
 
