@@ -1,4 +1,4 @@
-import { RENDER, UPDATE } from './grid.types';
+import { PLAY, RENDER, SIMULATE, UPDATE } from './grid.types';
 
 export const renderGrid = (grid) => {
 	grid.generateGrid();
@@ -17,6 +17,12 @@ export const updateGrid = (grid, x, y) => {
 export const simulateGrid = (grid) => {
 	grid.simulateGrid();
 	return {
-		type: UPDATE,
+		type: SIMULATE,
+	};
+};
+
+export const togglePlayBtn = () => {
+	return {
+		type: PLAY,
 	};
 };

@@ -1,9 +1,11 @@
 import Grid from '../../helpers/grid';
-import { RENDER, UPDATE, SIMULATE } from './grid.types';
+import { RENDER, UPDATE, SIMULATE, PLAY } from './grid.types';
 
 const INITIAL_STATE = {
 	grid: new Grid(),
-	counter: 0,
+	updateState: 0,
+	generation: 0,
+	isPlaying: false,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -15,12 +17,18 @@ const reducer = (state = INITIAL_STATE, action) => {
 		case UPDATE:
 			return {
 				...state,
-				counter: state.counter + 1,
+				updateState: !state.updateState,
 			};
 		case SIMULATE:
 			return {
 				...state,
-				counter: state.counter + 1,
+				updateState: !state.updateState,
+				generation: state.grid.getGeneration(),
+			};
+		case PLAY:
+			return {
+				...state,
+				isPlaying: !state.isPlaying,
 			};
 		default:
 			return state;
