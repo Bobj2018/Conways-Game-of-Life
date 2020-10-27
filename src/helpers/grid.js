@@ -6,6 +6,7 @@ class Grid {
 		this.generation = 0;
 		this.current_grid = current_grid;
 		this.next_grid = next_grid;
+		this.isSimulating = false;
 	}
 
 	generateGrid() {
@@ -64,6 +65,14 @@ class Grid {
 
 	getGeneration() {
 		return this.generation;
+	}
+
+	toggleSimulation() {
+		this.isSimulating = !this.isSimulating
+	}
+
+	getIsSimulating() {
+		return this.isSimulating
 	}
 
 	simulateGrid() {

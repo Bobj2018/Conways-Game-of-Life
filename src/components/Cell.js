@@ -14,7 +14,6 @@ function Cell(props) {
 		<div
 			style={styles}
 			onClick={() => {
-				console.log(props.grid.getCurrentGrid()[props.y][props.x]);
 				props.updateGrid(props.grid, props.y, props.x);
 			}}
 		></div>

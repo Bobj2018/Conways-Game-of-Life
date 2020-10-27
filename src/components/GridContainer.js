@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { renderGrid } from '../redux/Grid/grid.actions';
 
 function GridContainer(props) {
-	const { grid } = props;
 	const [renderedDOM, setRenderedDOM] = useState(null);
 	const styles = {
 		width: `${17 * props.grid.getSize()}px`,
@@ -20,7 +19,7 @@ function GridContainer(props) {
 			props.renderGrid(props.grid);
 		}
 		setRenderedDOM(props.grid.renderDOM(Cell));
-	}, [props.counter]);
+	}, [props.updateState]);
 
 	return <div style={styles}>{renderedDOM}</div>;
 }
@@ -28,7 +27,7 @@ function GridContainer(props) {
 const mapStateToProps = (state) => {
 	return {
 		grid: state.grid.grid,
-		counter: state.grid.counter,
+		updateState: state.grid.updateState,
 	};
 };
 

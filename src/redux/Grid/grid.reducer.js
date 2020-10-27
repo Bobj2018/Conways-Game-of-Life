@@ -28,6 +28,7 @@ const reducer = (state = INITIAL_STATE, action) => {
 		case PLAY:
 			return {
 				...state,
+				updateState: !state.updateState,
 				isPlaying: !state.isPlaying,
 			};
 		default:
