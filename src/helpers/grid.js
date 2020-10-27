@@ -22,6 +22,21 @@ class Grid {
 		this.current_grid = map;
 	}
 
+	seedGrid() {
+		const map = {};
+
+		for (let i = 0; i < this.size; i++) {
+			map[i] = [];
+
+			for (let j = 0; j < this.size; j++) {
+				let isAlive = Math.round(Math.random() * 1);
+				map[i].push(isAlive);
+			}
+		}
+
+		this.current_grid = map;
+	}
+
 	renderDOM(Component) {
 		const arr = [];
 		for (let key in this.getCurrentGrid()) {
@@ -68,11 +83,11 @@ class Grid {
 	}
 
 	toggleSimulation() {
-		this.isSimulating = !this.isSimulating
+		this.isSimulating = !this.isSimulating;
 	}
 
 	getIsSimulating() {
-		return this.isSimulating
+		return this.isSimulating;
 	}
 
 	simulateGrid() {

@@ -1,55 +1,51 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { simulateGrid, togglePlayBtn } from './redux/Grid/grid.actions';
+import { clearGrid, seedGrid, simulateGrid, togglePlayBtn } from './redux/Grid/grid.actions';
 
 import './App.css';
 import GridContainer from './components/GridContainer';
 
 function App(props) {
-	const [isPlaying, setIsPlaying] = useState(false);
-	function sleep(ms) {
-		return new Promise((resolve) => setTimeout(resolve, ms));
+	const [simulate, setSimulate] = useState(null);
+
+	function start() {
+		setSimulate(
+			setInterval(() => {
+				props.simulateGrid(props.grid);
+			}, 1000)
+		);
 	}
-	function runSimulation() {
-		// debugger;
-		console.log(isPlaying);
-		while (isPlaying) {
-			sleep(1000).then(() => {
-				if (isPlaying) {
-					props.simulateGrid(props.grid);
-				}
-			});
-		}
+
+	function stop() {
+		setSimulate(clearInterval(simulate));
 	}
 
 	return (
-		<div className="App" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+		<div
+			className="App"
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'center',
+				alignItems: 'center',
+				width: '100%',
+			}}
+		>
 			<p>Generation: {props.generation}</p>
 			<GridContainer />
 			<div>
-				<button onClick={() => props.simulateGrid(props.grid)}>Next</button>
+				<button onClick={() => props.simulateGrid(props.grid)}>Next Generation</button>
 				<button
 					onClick={() => {
-						if (!isPlaying) {
-							setIsPlaying(true);
-							runSimulation();
-						}
+						props.seedGrid(props.grid);
 					}}
 				>
-					Play
+					Seed Grid
 				</button>
-				<button
-					onClick={() => {
-						if (isPlaying) {
-							console.log(isPlaying);
-							setIsPlaying(!isPlaying);
-						}
-					}}
-				>
-					Pause
-				</button>
-				<button>Clear</button>
+				<button onClick={start}>Play Simulation</button>
+				<button onClick={stop}>Pause Simulation</button>
+				<button onClick={props.clearGrid}>Clear Grid</button>
 			</div>
 		</div>
 	);
@@ -67,6 +63,8 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		simulateGrid: (grid) => dispatch(simulateGrid(grid)),
 		togglePlayBtn: () => dispatch(togglePlayBtn()),
+		clearGrid: () => dispatch(clearGrid()),
+		seedGrid: (grid) => dispatch(seedGrid(grid)),
 	};
 };
 

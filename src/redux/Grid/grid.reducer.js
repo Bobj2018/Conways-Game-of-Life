@@ -1,5 +1,5 @@
 import Grid from '../../helpers/grid';
-import { RENDER, UPDATE, SIMULATE, PLAY } from './grid.types';
+import { RENDER, UPDATE, SIMULATE, PLAY, CLEAR, SEED } from './grid.types';
 
 const INITIAL_STATE = {
 	grid: new Grid(),
@@ -30,6 +30,21 @@ const reducer = (state = INITIAL_STATE, action) => {
 				...state,
 				updateState: !state.updateState,
 				isPlaying: !state.isPlaying,
+			};
+		case CLEAR:
+			return {
+				...state,
+				grid: new Grid(),
+				generation: 0,
+				updateState: !state.updateState,
+				isPlaying: false,
+			};
+		case SEED:
+			return {
+				...state,
+				generation: 0,
+				updateState: !state.updateState,
+				isPlaying: false,
 			};
 		default:
 			return state;

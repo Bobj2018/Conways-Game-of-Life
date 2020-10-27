@@ -1,4 +1,4 @@
-import { PLAY, RENDER, SIMULATE, UPDATE } from './grid.types';
+import { CLEAR, PLAY, RENDER, SEED, SIMULATE, UPDATE } from './grid.types';
 
 export const renderGrid = (grid) => {
 	grid.generateGrid();
@@ -24,5 +24,18 @@ export const simulateGrid = (grid) => {
 export const togglePlayBtn = () => {
 	return {
 		type: PLAY,
+	};
+};
+
+export const clearGrid = () => {
+	return {
+		type: CLEAR,
+	};
+};
+
+export const seedGrid = (grid) => {
+	grid.seedGrid();
+	return {
+		type: SEED,
 	};
 };
